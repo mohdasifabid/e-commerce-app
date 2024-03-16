@@ -8,7 +8,7 @@ export const Input = (props: InputPropsType) => {
       <input
         type={type}
         placeholder={placeholder}
-        className="w-456 h-48 p-2  focus:outline-none border-1 border-gray-300 rounded-md"
+        className="w-456 h-48 p-2  focus:outline-none border-2 border-gray-400 rounded-md"
       />
     </div>
   );
