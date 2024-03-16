@@ -1,7 +1,7 @@
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 export const Navbar = (props: any) => {
   return (
-    <div className="flex flex-col border-2 w-screen gap-4 pl-7 pr-7">
+    <div className="flex flex-col border-2 w-full gap-4 pl-7 pr-7">
       <div className="flex justify-end pt-2">
         <div className="flex gap-7 ">
           <p>Help</p>
