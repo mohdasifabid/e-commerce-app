@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         const { email, password } = req.body;
         const token = authenticateUser(email, password);
         if (token) {
-            res.status(200).json({ token });
+            res.status(200).json({ token, email });
         } else {
             res.status(401).json({ error: "Invalid credentials" });
         }
