@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InterestPropsTypes } from "../lib/definitions";
 
 export const Interest = (props: InterestPropsTypes) => {
-  const { interest, checked, value } = props;
+  const { interest, checked, value, setUpdatedCategoryInfo } = props;
   const [isInterestChecked, setIsInterestChecked] = useState(checked);
 
   return (
@@ -14,6 +14,10 @@ export const Interest = (props: InterestPropsTypes) => {
         value={value}
         onChange={(e) => {
           setIsInterestChecked((prevState) => !prevState);
+          setUpdatedCategoryInfo({
+            categoryId: e.target.value,
+            interest: !isInterestChecked,
+          });
         }}
       />
       <p>{interest}</p>

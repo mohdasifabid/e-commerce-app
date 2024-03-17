@@ -10,7 +10,10 @@ import { interestList } from "../lib/placeholder-data";
 const InterestPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
   const [categoriesInfo, setCategoriesInfo] = useState({});
-
+  const [updatedCategoryInfo, setUpdatedCategoryInfo] = useState({
+    categoryId: null,
+    interest: null,
+  });
   const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
 
   const getCategories = async () => {
@@ -21,9 +24,18 @@ const InterestPage = () => {
   const { categories, recordsPerPage, pageNumber, totalPages }: any =
     categoriesInfo;
 
+  const updateInterestHandler = async () => {
+    const res = await axios.put("/api/update-interest", {
+      categoryId: Number(updatedCategoryInfo?.categoryId),
+      interest: updatedCategoryInfo?.interest,
+    });
+  };
+  useEffect(() => {
+    updateInterestHandler();
+  }, [updatedCategoryInfo?.categoryId != null]);
   useEffect(() => {
     getCategories();
-  }, [currentPage]);
+  }, [currentPage, updatedCategoryInfo?.categoryId != null]);
 
   return (
     <Layout>
@@ -44,6 +56,7 @@ const InterestPage = () => {
                 value={id}
                 checked={interested}
                 key={id}
+                setUpdatedCategoryInfo={setUpdatedCategoryInfo}
               />
             );
           })}
