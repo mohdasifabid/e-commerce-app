@@ -7,7 +7,9 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
         console.log({ pageNumber, recordsPerPage })
         const startIndex = (Number(pageNumber) - 1) * Number(recordsPerPage);
         const paginatedCategories = categories.slice(startIndex, startIndex + Number(recordsPerPage));
-        res.status(200).json({ success: true, categories: paginatedCategories })
+        const totalCategories = categories.length;
+        const totalPages = Math.ceil(totalCategories / Number(recordsPerPage));
+        res.status(200).json({ categories: paginatedCategories, recordsPerPage, pageNumber, totalPages })
     } else {
         res.status(405).json({ success: false, message: 'Method Not Allowed' });
     }

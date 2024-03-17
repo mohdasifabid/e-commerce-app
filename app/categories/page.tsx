@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -7,17 +7,20 @@ import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
 import { interestList } from "../lib/placeholder-data";
 
-
 const InterestPage = () => {
-  const [pageNumber, setPageNumber] = useState(1)
-  const [recordsPerPage, setRecordsPerPage] = useState(6) 
-  const endPoint = `/api/get-categories?pageNumber=${pageNumber}&recordsPerPage=${recordsPerPage}`
+  const [currentPage, setcurrentPage] = useState(1);
+  const [categoriesInfo, setCategoriesInfo] = useState({});
+  const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
   const getCategories = async () => {
     const res = await axios.get(endPoint);
+    setCategoriesInfo(res.data);
   };
+
+  const { categories, recordsPerPage, pageNumber, totalPages }: any =
+    categoriesInfo;
   useEffect(() => {
     getCategories();
-  }, [pageNumber, recordsPerPage]);
+  }, [pageNumber]);
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
@@ -30,17 +33,22 @@ const InterestPage = () => {
         <p className="mb-4 font-bold"> My saved interests!</p>
 
         <div className="flex flex-col gap-8 ">
-          {interestList?.map(({ name, id, checked }) => {
+          {categories?.map(({ categoryName, id, interested }: any) => {
             return (
-              <Interest interest={name} value={id} checked={checked} key={id} />
+              <Interest
+                interest={categoryName}
+                value={id}
+                checked={interested}
+                key={id}
+              />
             );
           })}
           <div className="flex items-center flex-col">
             <Pagination
-              totalPages={3}
-              recordsPerPage={10}
-              currentPage={1}
-              totalRecords={20}
+              totalPages={totalPages}
+              recordsPerPage={recordsPerPage}
+              currentPage={pageNumber}
+              totalRecords={totalPages}
             />
           </div>
         </div>
