@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import axios from "axios";
 
 export const SignUp = (props: any) => {
   const router = useRouter();
@@ -21,7 +22,18 @@ export const SignUp = (props: any) => {
   ] = useState("");
 
   const handleNavigationToSignInPage = () => router.push("/signIn");
-
+  const createAccountHandler = async () => {
+    const res = await axios.post("/api/create-account", {
+      name,
+      email,
+      password,
+    });
+    if(res.status === 201){
+      localStorage.setItem("encodedToken",res.data.token)
+      localStorage.setItem("userName",res.data.newUser.name)
+      router.push("/home")
+    }
+  };
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
       <p className="text-4xl font-bold pb-6 pt-8">Create your account</p>
@@ -45,7 +57,7 @@ export const SignUp = (props: any) => {
           type="password"
           setter={setPassword}
         />
-        <Button btnName="CREATE ACCOUNT" />
+        <Button btnName="CREATE ACCOUNT" onClick={createAccountHandler} />
         <hr />
         <p className="flex justify-center pb-3 gap-3">
           Have an Account?{" "}
