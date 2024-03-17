@@ -6,9 +6,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "./button";
 import { Input } from "./input";
 
-
 export const Login = (props: any) => {
-const router = useRouter();
+  const router = useRouter();
   const [email, setEmail]: [
     string,
     React.Dispatch<React.SetStateAction<string>>
@@ -31,6 +30,8 @@ const router = useRouter();
     }
   };
 
+  const handleNavigationToSignUpPage = () => router.push("/create-account");
+
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
       <p className="text-4xl font-bold mb-4 pt-4">Login</p>
@@ -52,7 +53,10 @@ const router = useRouter();
         <Button btnName="Login" onClick={loginHandler} />
         <hr />
         <p className="flex justify-center pb-3 gap-3">
-          Dont have an Account? <a className="cursor-pointer">SIGN UP</a>
+          Dont have an Account?{" "}
+          <a className="cursor-pointer" onClick={handleNavigationToSignUpPage}>
+            SIGN UP
+          </a>
         </p>
       </div>
     </div>
