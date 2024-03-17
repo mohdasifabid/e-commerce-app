@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 
 import useAuth from "../lib/useAuth";
-import { DiscountTab } from "./discountTab";
+import { DiscountBar } from "./discountBar";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
 
 export const Navbar = (props: any) => {
@@ -54,7 +54,7 @@ export const Navbar = (props: any) => {
           </div>
         </div>
       </div>
-      <DiscountTab />
+      <DiscountBar />
     </div>
   );
 };

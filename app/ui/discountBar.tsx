@@ -1,5 +1,5 @@
 import { GrNext, GrPrevious } from "react-icons/gr";
-export const DiscountTab = (props: any) => {
+export const DiscountBar = (props: any) => {
   return (
     <div className="flex gap-3 bg-gray-300 w-full justify-center pt-1 pb-1 ">
       <button>
