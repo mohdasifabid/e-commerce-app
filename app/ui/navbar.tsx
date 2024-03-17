@@ -4,7 +4,7 @@ import { FaSearch, FaShoppingCart } from "react-icons/fa";
 
 import useAuth from "../lib/useAuth";
 import { DiscountTab } from "./discountTab";
-
+import loginLogoutHandler from "../lib/loginLogoutHandler";
 
 export const Navbar = (props: any) => {
   const router = useRouter();
@@ -20,7 +20,7 @@ export const Navbar = (props: any) => {
   };
 
   const userInfoString = localStorage.getItem("userInfo") || "";
-  const { name } = userInfoString ? JSON.parse(userInfoString) : null;
+  const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
 
   return (
     <div className="fixed top-0 left-0 bg-white z-10 w-full h-18">
@@ -29,8 +29,10 @@ export const Navbar = (props: any) => {
           <div className="flex gap-7 ">
             <p>Help</p>
             <p>Orders & Returns </p>
-            {name && <p>Hi, {name}</p>}
-            <button>{isLoggedIn ? "Logout" : "Login"}</button>
+            {userInfo?.name && <p>Hi, {userInfo?.name}</p>}
+            <button onClick={() => loginLogoutHandler(isLoggedIn, router)}>
+              {isLoggedIn ? "Logout" : "Login"}
+            </button>
           </div>
         </div>
         <div className="flex justify-between pb-2">
