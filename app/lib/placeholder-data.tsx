@@ -21,11 +21,13 @@ export const interestList: InterestListTypes[] = [
 export const usersList: any = [
   {
     id: 1,
+    name: "Guest User",
     email: "guest@user.com",
     password: "guestUser123",
   },
   {
     id: 2,
+    name: "John Doe",
     username: "john@doe.in",
     password: "johnDoe123",
   },
