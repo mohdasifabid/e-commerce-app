@@ -18,7 +18,7 @@ export const interestList: InterestListTypes[] = [
   },
 ];
 
-export const users = [
+export const usersList: any = [
   {
     id: 1,
     email: "guest@user.com",
