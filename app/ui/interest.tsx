@@ -12,5 +12,6 @@ export const Interest = (props: InterestPropsTypes) => {
       />
       <p>{interest}</p>
     </div>
+    
   );
 };

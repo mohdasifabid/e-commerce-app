@@ -1,6 +1,17 @@
+"use client"
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { DiscountTab } from "./discountTab";
+import { useRouter } from "next/navigation";
 export const Navbar = (props: any) => {
+  const router = useRouter();
+  const encodedToken = localStorage.getItem("encodedToken");
+  const handleCategoryClick = () => {
+    if (encodedToken) {
+      router.push("/categories");
+    } else {
+      router.push("/login");
+    }
+  };
   return (
     <div className="fixed top-0 left-0 bg-white z-10 w-full h-18">
       <div className="flex flex-col border-2 w-full gap-4 pl-7 pr-7 ">
@@ -14,7 +25,7 @@ export const Navbar = (props: any) => {
         <div className="flex justify-between pb-2">
           <p className="text-2xl font-bold">E-COMMERCE</p>
           <div className="flex gap-6 text-1xl font-bold">
-            <button>Categories</button>
+            <button onClick={handleCategoryClick}>Categories</button>
             <button>Sale</button>
             <button>Clearance</button>
             <button>New Stock</button>
