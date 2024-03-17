@@ -10,6 +10,7 @@ export type PaginationPropsType = {
   recordsPerPage: number | undefined;
   currentPage: number | 1;
   totalPages: number | 1;
+  setcurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export type InterestListTypes = {

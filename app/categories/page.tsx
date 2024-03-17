@@ -23,8 +23,8 @@ const InterestPage = () => {
 
   useEffect(() => {
     getCategories();
-  }, [pageNumber]);
-  
+  }, [currentPage]);
+
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
@@ -53,6 +53,7 @@ const InterestPage = () => {
               recordsPerPage={recordsPerPage}
               currentPage={pageNumber}
               totalRecords={totalPages}
+              setcurrentPage={setcurrentPage}
             />
           </div>
         </div>
