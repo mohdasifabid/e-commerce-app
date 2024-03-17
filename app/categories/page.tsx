@@ -1,9 +1,23 @@
-import { interestList } from "../lib/placeholder-data";
-import { Interest } from "../ui/interest";
+"use client"
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 import { Layout } from "../ui/layout";
+import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
+import { interestList } from "../lib/placeholder-data";
+
 
 const InterestPage = () => {
+  const [pageNumber, setPageNumber] = useState(1)
+  const [recordsPerPage, setRecordsPerPage] = useState(6) 
+  const endPoint = `/api/get-categories?pageNumber=${pageNumber}&recordsPerPage=${recordsPerPage}`
+  const getCategories = async () => {
+    const res = await axios.get(endPoint);
+  };
+  useEffect(() => {
+    getCategories();
+  }, [pageNumber, recordsPerPage]);
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
