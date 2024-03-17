@@ -1,17 +1,27 @@
-"use client"
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
-import { DiscountTab } from "./discountTab";
+"use client";
 import { useRouter } from "next/navigation";
+import { FaSearch, FaShoppingCart } from "react-icons/fa";
+
+import useAuth from "../lib/useAuth";
+import { DiscountTab } from "./discountTab";
+
+
 export const Navbar = (props: any) => {
   const router = useRouter();
-  const encodedToken = localStorage.getItem("encodedToken");
+  const isLoggedIn = useAuth();
+  const authToken = localStorage.getItem("authToken");
+
   const handleCategoryClick = () => {
-    if (encodedToken) {
+    if (authToken) {
       router.push("/categories");
     } else {
       router.push("/login");
     }
   };
+
+  const userInfoString = localStorage.getItem("userInfo") || "";
+  const { name } = userInfoString ? JSON.parse(userInfoString) : null;
+
   return (
     <div className="fixed top-0 left-0 bg-white z-10 w-full h-18">
       <div className="flex flex-col border-2 w-full gap-4 pl-7 pr-7 ">
@@ -19,7 +29,8 @@ export const Navbar = (props: any) => {
           <div className="flex gap-7 ">
             <p>Help</p>
             <p>Orders & Returns </p>
-            <p>Hi, John</p>
+            {name && <p>Hi, {name}</p>}
+            <button>{isLoggedIn ? "Logout" : "Login"}</button>
           </div>
         </div>
         <div className="flex justify-between pb-2">

@@ -25,8 +25,9 @@ export const Login = (props: any) => {
       password,
     });
     if (res.status === 200) {
-      localStorage.setItem("encodedToken", res.data.token);
-      router.push("/home");
+      localStorage.setItem("authToken", res.data.token);
+      localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
+      router.push("/categories");
     }
   };
 

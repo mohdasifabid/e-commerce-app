@@ -29,7 +29,7 @@ export const SignUp = (props: any) => {
       password,
     });
     if(res.status === 201){
-      localStorage.setItem("encodedToken",res.data.token)
+      localStorage.setItem("authToken",res.data.token)
       localStorage.setItem("userName",res.data.newUser.name)
       router.push("/home")
     }
