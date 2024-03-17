@@ -17,3 +17,16 @@ export const interestList: InterestListTypes[] = [
     checked: false,
   },
 ];
+
+export const users = [
+  {
+    id: 1,
+    email: "guest@user.com",
+    password: "guestUser123",
+  },
+  {
+    id: 2,
+    username: "john@doe.in",
+    password: "johnDoe123",
+  },
+];
