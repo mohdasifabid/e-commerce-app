@@ -10,7 +10,9 @@ import { interestList } from "../lib/placeholder-data";
 const InterestPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
   const [categoriesInfo, setCategoriesInfo] = useState({});
+
   const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
+
   const getCategories = async () => {
     const res = await axios.get(endPoint);
     setCategoriesInfo(res.data);
@@ -18,9 +20,11 @@ const InterestPage = () => {
 
   const { categories, recordsPerPage, pageNumber, totalPages }: any =
     categoriesInfo;
+
   useEffect(() => {
     getCategories();
   }, [pageNumber]);
+  
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">

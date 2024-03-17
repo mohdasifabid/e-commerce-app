@@ -11,6 +11,7 @@ export const Pagination = (props: PaginationPropsType) => {
     endPage = Math.min(7, totalPages);
   }
   const btnsList = [];
+  
   for (let i = startPage; i <= endPage; i++) {
     btnsList.push(
       <button

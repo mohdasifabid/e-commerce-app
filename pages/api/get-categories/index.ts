@@ -4,7 +4,6 @@ import { categories } from "@/app/lib/placeholder-data";
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "GET") {
         const { pageNumber = 1, recordsPerPage = 6 } = req.query;
-        console.log({ pageNumber, recordsPerPage })
         const startIndex = (Number(pageNumber) - 1) * Number(recordsPerPage);
         const paginatedCategories = categories.slice(startIndex, startIndex + Number(recordsPerPage));
         const totalCategories = categories.length;
