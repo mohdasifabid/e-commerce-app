@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
+import { validateEmail, validateName, validatePassword } from "../lib/utils";
 
 export const SignUp = (props: any) => {
   const router = useRouter();
@@ -43,6 +44,7 @@ export const SignUp = (props: any) => {
           label="Name"
           type="text"
           setter={setName}
+          validate={validateName}
         />
 
         <Input
@@ -50,12 +52,14 @@ export const SignUp = (props: any) => {
           label="Email"
           type="email"
           setter={setEmail}
+          validate={validateEmail}
         />
         <Input
           placeholder="Please enter password"
           label="Password"
           type="password"
           setter={setPassword}
+          validate={validatePassword}
         />
         <span className="pt-2">
           <Button btnName="CREATE ACCOUNT" onClick={createAccountHandler} />

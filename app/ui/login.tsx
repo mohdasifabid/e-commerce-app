@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { Button } from "./button";
 import { Input } from "./input";
+import { validateEmail, validatePassword } from "../lib/utils";
 
 export const Login = (props: any) => {
   const router = useRouter();
@@ -44,12 +45,14 @@ export const Login = (props: any) => {
           label="Email"
           type="email"
           setter={setEmail}
+          validate={validateEmail}
         />
         <Input
           placeholder="Please enter password"
           label="Password"
           type="password"
           setter={setPassword}
+          validate={validatePassword}
         />
         <span className="pt-2">
           <Button btnName="Login" onClick={loginHandler} />

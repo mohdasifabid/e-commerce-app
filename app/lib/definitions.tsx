@@ -3,6 +3,7 @@ export type InputPropsType = {
   label: string;
   type: string | "password" | "email" | "number";
   setter: React.Dispatch<React.SetStateAction<any>>;
+  validate: any
 };
 
 export type PaginationPropsType = {
