@@ -21,7 +21,7 @@ export const SignUp = (props: any) => {
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
 
-  const handleNavigationToSignInPage = () => router.push("/signIn");
+  const handleNavigationToSignInPage = () => router.push("/login");
   const createAccountHandler = async () => {
     const res = await axios.post("/api/create-account", {
       name,
