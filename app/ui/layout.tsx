@@ -1,4 +1,3 @@
-import { DiscountBar } from "./discountBar";
 import { Navbar } from "./navbar";
 
 const layoutChildrenStyle: any = { top: "144px", position: "relative" };
