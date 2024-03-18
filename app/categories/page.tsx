@@ -6,10 +6,10 @@ import { Layout } from "../ui/layout";
 import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
 import { interestList } from "../lib/placeholder-data";
+import { useQuery } from "@tanstack/react-query";
 
 const InterestPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
-  const [categoriesInfo, setCategoriesInfo] = useState({});
   const [updatedCategoryInfo, setUpdatedCategoryInfo] = useState({
     categoryId: null,
     interest: null,
@@ -18,11 +18,9 @@ const InterestPage = () => {
 
   const getCategories = async () => {
     const res = await axios.get(endPoint);
-    setCategoriesInfo(res.data);
+    return res.data
   };
 
-  const { categories, recordsPerPage, pageNumber, totalPages }: any =
-    categoriesInfo;
 
   const updateInterestHandler = async () => {
     const res = await axios.put("/api/update-interest", {
@@ -30,13 +28,14 @@ const InterestPage = () => {
       interest: updatedCategoryInfo?.interest,
     });
   };
-  useEffect(() => {
-    updateInterestHandler();
-  }, [updatedCategoryInfo?.categoryId != null]);
-  useEffect(() => {
-    getCategories();
-  }, [currentPage, updatedCategoryInfo?.categoryId != null]);
+  // useEffect(() => {
+  //   updateInterestHandler();
+  // }, [updatedCategoryInfo?.categoryId != null]);
 
+  const { isLoading, data } = useQuery({
+    queryKey: ["categories", currentPage],
+    queryFn: () => getCategories(),
+  })
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
@@ -49,7 +48,7 @@ const InterestPage = () => {
         <p className="mb-4 font-bold"> My saved interests!</p>
 
         <div className="flex flex-col gap-8 ">
-          {categories?.map(({ categoryName, id, interested }: any) => {
+          {data?.categories?.map(({ categoryName, id, interested }: any) => {
             return (
               <Interest
                 interest={categoryName}
@@ -62,10 +61,10 @@ const InterestPage = () => {
           })}
           <div className="flex items-center flex-col">
             <Pagination
-              totalPages={totalPages}
-              recordsPerPage={recordsPerPage}
-              currentPage={pageNumber}
-              totalRecords={totalPages}
+              totalPages={data?.totalPages}
+              recordsPerPage={data?.recordsPerPage}
+              currentPage={data?.pageNumber}
+              totalRecords={data?.totalPages}
               setcurrentPage={setcurrentPage}
             />
           </div>
