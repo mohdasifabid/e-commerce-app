@@ -32,7 +32,7 @@ export const SignUp = (props: any) => {
     if (res.status === 201) {
       localStorage.setItem("authToken", res.data.token);
       localStorage.setItem("userName", res.data.newUser.name);
-      router.push("/home");
+      router.push("/login");
     }
   };
   return (
