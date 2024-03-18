@@ -35,9 +35,9 @@ export const Login = (props: any) => {
 
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
-      <p className="text-4xl font-bold mb-4 pt-4">Login</p>
-      <p className="text-xl ">Welcome back to ECOMMERCE</p>
-      <p className="mb-4"> The next gen business marketplace</p>
+      <p className="text-3xl font-600 mb-4 pt-4">Login</p>
+      <p className="text-2xl font-500">Welcome back to ECOMMERCE</p>
+      <p className="mb-4 font-400"> The next gen business marketplace</p>
       <div className="flex flex-col gap-8">
         <Input
           placeholder="Please enter email"
