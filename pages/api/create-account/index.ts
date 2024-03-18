@@ -14,7 +14,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<any>) => {
             const { name, email, password }: User = req.body;
             const users = await createUser(name, email, password);
             const token = authenticateUser(email, password)
-            res.status(201).json(users)
+            res.status(201).json({
+                ...users, token
+            })
         } catch (error) {
             res.status(500).json({ message: 'Failed to create user' });
         }
