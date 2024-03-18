@@ -23,5 +23,4 @@ export type InterestPropsTypes = {
   interest: string;
   value: string | number;
   checked: false | true;
-  setUpdatedCategoryInfo: React.Dispatch<React.SetStateAction<any>>
 };
