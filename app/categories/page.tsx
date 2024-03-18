@@ -1,11 +1,11 @@
 "use client";
 import axios from "axios";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import { Layout } from "../ui/layout";
 import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
-import { useQuery } from "@tanstack/react-query";
 
 const InterestPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
