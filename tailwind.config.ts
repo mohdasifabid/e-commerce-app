@@ -28,7 +28,11 @@ const config: Config = {
         "40": "40rem",
         '36': '36px',
         '27': '27px',
+        "614": "614px"
 
+      },
+      padding: {
+        "176": "176px"
       },
       fontFamily: {
         'inter': ['Inter'],
