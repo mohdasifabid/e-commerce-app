@@ -1,7 +1,8 @@
 "use client";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import { Layout } from "../ui/layout";
 import { Interest } from "../ui/interest";
@@ -10,10 +11,9 @@ import Loader from "../loader";
 import { useData } from "../context/page";
 
 const InterestPage = () => {
-  // const [currentPage, setcurrentPage] = useState(1);
   const { store, setData } = useData();
-  const {currentPage} = store
-  
+  const { currentPage, isAuthenticated } = store;
+  const router = useRouter();
   const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
 
   const getCategories = async () => {
@@ -25,7 +25,11 @@ const InterestPage = () => {
     queryKey: ["categories", currentPage],
     queryFn: () => getCategories(),
   });
-
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated]);
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
@@ -41,18 +45,16 @@ const InterestPage = () => {
           <Loader />
         ) : (
           <div className="flex flex-col gap-8 ">
-            {data?.categories?.map(
-              ({ categoryName, id, interested }: any) => {
-                return (
-                  <Interest
-                    interest={categoryName}
-                    value={id}
-                    checked={interested}
-                    key={id}
-                  />
-                );
-              }
-            )}
+            {data?.categories?.map(({ categoryName, id, interested }: any) => {
+              return (
+                <Interest
+                  interest={categoryName}
+                  value={id}
+                  checked={interested}
+                  key={id}
+                />
+              );
+            })}
             <div className="flex items-center flex-col">
               <Pagination
                 totalPages={data?.totalPages}
