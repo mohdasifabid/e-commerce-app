@@ -20,19 +20,23 @@ export const Login = (props: any) => {
 
   const endPoint = "/api/login";
   const loginHandler = async () => {
-    const res = await axios.post(endPoint, {
-      email,
-      password,
-    });
-    if (res.status === 200) {
-      localStorage.setItem("authToken", res.data.token);
-      localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
-      localStorage.setItem("success", res.data.success);
-      router.push("/categories");
-    } else {
-      localStorage.setItem("error", res.data.error);
+    try {
+      const res = await axios.post(endPoint, {
+        email,
+        password,
+      });
+
+      if (res.status === 200 || 201) {
+        localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
+        localStorage.setItem("success", res.data.success);
+        router.push("/categories");
+      }
+    } catch (error) {
+      localStorage.setItem("error", error?.response.data.error)
     }
   };
+
 
   const handleNavigationToSignUpPage = () => router.push("/create-account");
 
