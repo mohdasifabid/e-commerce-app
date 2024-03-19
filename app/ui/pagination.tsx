@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GrNext, GrPrevious } from "react-icons/gr";
+import { FcPrevious , FcNext} from "react-icons/fc";
 import { PaginationPropsType } from "../lib/definitions";
 
 export const Pagination = (props: PaginationPropsType) => {
@@ -34,11 +34,11 @@ export const Pagination = (props: PaginationPropsType) => {
   return (
     <div className="flex gap-3 items-center">
       <button>
-        <GrPrevious />
+        <FcPrevious />
       </button>
       {btnsList}
       <button>
-        <GrNext />
+        <FcNext />
       </button>
     </div>
   );
