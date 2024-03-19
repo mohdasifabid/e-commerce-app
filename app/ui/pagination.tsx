@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FcPrevious , FcNext} from "react-icons/fc";
+import { FcPrevious, FcNext } from "react-icons/fc";
 import { PaginationPropsType } from "../lib/definitions";
 
 export const Pagination = (props: PaginationPropsType) => {
@@ -30,14 +30,29 @@ export const Pagination = (props: PaginationPropsType) => {
       </button>
     );
   }
-
+  const isPreviousIconDisabled = currentPage == 1;
+  const isNextIconDisabled = currentPage == totalPages - 1;
   return (
     <div className="flex gap-3 items-center">
-      <button>
+      <button
+        className={`${isPreviousIconDisabled && "cursor-not-allowed"}`}
+        disabled={isPreviousIconDisabled}
+        onClick={() => {
+          setcurrentPage((prevState) => prevState - 1);
+          setSelectedPage((prevState) => prevState - 1);
+        }}
+      >
         <FcPrevious />
       </button>
       {btnsList}
-      <button>
+      <button
+        className={`${isNextIconDisabled && "cursor-not-allowed"}`}
+        disabled={isNextIconDisabled}
+        onClick={() => {
+          setcurrentPage((prevState) => prevState + 1);
+          setSelectedPage((prevState) => prevState + 1);
+        }}
+      >
         <FcNext />
       </button>
     </div>
