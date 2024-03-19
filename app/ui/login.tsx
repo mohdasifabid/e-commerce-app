@@ -1,11 +1,11 @@
 "use client";
-import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import { Button } from "./button";
 import { Input } from "./input";
-import { validateEmail, validatePassword } from "../lib/utils";
+import { loginHandler, validateEmail, validatePassword } from "../lib/utils";
 
 export const Login = (props: any) => {
   const router = useRouter();
@@ -13,29 +13,16 @@ export const Login = (props: any) => {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ] = useState("");
+  
   const [password, setPassword]: [
     string | number,
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
 
-  const loginHandler = async () => {
-  const endPoint = "/api/login";
-    try {
-      const res = await axios.post(endPoint, {
-        email,
-        password,
-      });
-
-      if (res.status === 200 || 201) {
-        localStorage.setItem("authToken", res.data.token);
-        localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
-        localStorage.setItem("success", res.data.success);
-        router.push("/categories");
-      }
-    } catch (error) {
-      localStorage.setItem("error", error?.response.data.error);
-    }
-  };
+  const mutation = useMutation({
+    mutationKey: ["login"],
+    mutationFn: () => loginHandler(email, password, router),
+  });
 
   const handleNavigationToSignUpPage = () => router.push("/create-account");
 
@@ -62,7 +49,7 @@ export const Login = (props: any) => {
         <span className="pt-2">
           <Button
             btnName="Login"
-            onClick={loginHandler}
+            onClick={mutation.mutate}
             isDisabled={!(email && password)}
           />
         </span>
