@@ -8,13 +8,17 @@ import { DiscountBar } from "./discountBar";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
 import SuccessAlert from "../alerts/successAlert";
 import useSuccessMsg from "../lib/useSuccessMsg";
+import ErrorAlert from "../alerts/errorAlert";
+import useErrorMsg from "../lib/useErrorMsg";
 
 export const Navbar = (props: any) => {
   const router = useRouter();
   const isLoggedIn = useAuth();
   const authToken = localStorage.getItem("authToken");
   const isSuccessAlertAlive = useSuccessMsg()
-  const successMsg = localStorage.getItem("success")
+  const isErrorAlertActive = useErrorMsg()
+  const successMsg = localStorage.getItem("success") || ""
+  const errorMsg = localStorage.getItem("error") || ""
 
   const handleCategoryClick = () => {
     if (authToken) {
@@ -26,11 +30,14 @@ export const Navbar = (props: any) => {
 
   const userInfoString = localStorage.getItem("userInfo") || "";
   const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
-
+  console.log({ isErrorAlertActive , errorMsg})
   return (
     <nav className="fixed top-0 left-0 bg-white z-10 w-full h-100">
       {
-        isSuccessAlertAlive && <SuccessAlert message={successMsg || ""} />
+        isSuccessAlertAlive && <SuccessAlert message={successMsg} />
+      }
+      {
+        isErrorAlertActive && <ErrorAlert message={errorMsg} />
       }
       <div className="flex flex-col border-2 w-full gap-4 pl-7 pr-7 ">
         <div className="flex justify-end pt-2">
