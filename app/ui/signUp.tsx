@@ -40,7 +40,7 @@ export const SignUp = (props: any) => {
       localStorage.setItem("error", JSON.stringify(error?.response.data.error));
     }
   };
- 
+
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576 h-614">
       <p className="text-4xl font-600 pb-6 pt-16">Create your account</p>
@@ -68,7 +68,11 @@ export const SignUp = (props: any) => {
           validate={validatePassword}
         />
         <span className="pt-2">
-          <Button btnName="CREATE ACCOUNT" onClick={createAccountHandler} />
+          <Button
+            btnName="CREATE ACCOUNT"
+            onClick={createAccountHandler}
+            isDisabled={!(name && password && email)}
+          />
         </span>
         <hr />
         <p className="flex justify-center pb-3 gap-3">

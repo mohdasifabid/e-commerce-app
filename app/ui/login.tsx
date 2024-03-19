@@ -33,10 +33,9 @@ export const Login = (props: any) => {
         router.push("/categories");
       }
     } catch (error) {
-      localStorage.setItem("error", error?.response.data.error)
+      localStorage.setItem("error", error?.response.data.error);
     }
   };
-
 
   const handleNavigationToSignUpPage = () => router.push("/create-account");
 
@@ -61,7 +60,11 @@ export const Login = (props: any) => {
           validate={validatePassword}
         />
         <span className="pt-2">
-          <Button btnName="Login" onClick={loginHandler} />
+          <Button
+            btnName="Login"
+            onClick={loginHandler}
+            isDisabled={!(email && password)}
+          />
         </span>
         <hr />
         <p className="flex justify-center pb-3 gap-3">
