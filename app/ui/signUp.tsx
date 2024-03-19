@@ -1,11 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import axios from "axios";
-import { validateEmail, validateName, validatePassword } from "../lib/utils";
+import {
+  createAccountHandler,
+  handleNavigationToSignInPage,
+  validateEmail,
+  validateName,
+  validatePassword,
+} from "../lib/utils";
 
 export const SignUp = (props: any) => {
   const router = useRouter();
@@ -22,25 +29,10 @@ export const SignUp = (props: any) => {
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
 
-  const handleNavigationToSignInPage = () => router.push("/login");
-  const createAccountHandler = async () => {
-    try {
-      const res = await axios.post("/api/create-account", {
-        name,
-        email,
-        password,
-      });
-      if (res.status === 201) {
-        localStorage.setItem("authToken", res.data.token);
-        localStorage.setItem("userInfo", JSON.stringify(res.data.newUser));
-        localStorage.setItem("success", JSON.stringify(res.data.success));
-        router.push("/categories");
-      }
-    } catch (error) {
-      localStorage.setItem("error", JSON.stringify(error?.response.data.error));
-    }
-  };
-
+  const mutation: any = useMutation({
+    mutationKey: ["signUp"],
+    mutationFn: () => createAccountHandler(name, email, password, router),
+  });
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576 h-614">
       <p className="text-4xl font-600 pb-6 pt-16">Create your account</p>
@@ -70,14 +62,17 @@ export const SignUp = (props: any) => {
         <span className="pt-2">
           <Button
             btnName="CREATE ACCOUNT"
-            onClick={createAccountHandler}
+            onClick={mutation.mutate}
             isDisabled={!(name && password && email)}
           />
         </span>
         <hr />
         <p className="flex justify-center pb-3 gap-3">
           Have an Account?{" "}
-          <a className="cursor-pointer" onClick={handleNavigationToSignInPage}>
+          <a
+            className="cursor-pointer"
+            onClick={() => handleNavigationToSignInPage(router)}
+          >
             Login
           </a>
         </p>

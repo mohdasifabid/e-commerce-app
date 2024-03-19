@@ -1,11 +1,12 @@
-"use client"
+"use client";
+
+import { useState } from "react";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { PaginationPropsType } from "../lib/definitions";
-import { useState } from "react";
 
 export const Pagination = (props: PaginationPropsType) => {
-  const { totalRecords, recordsPerPage, currentPage, totalPages, setcurrentPage } = props;
-  const [selectedPage, setSelectedPage] = useState(1)
+  const { currentPage, totalPages, setcurrentPage } = props;
+  const [selectedPage, setSelectedPage] = useState(1);
 
   let startPage = Math.max(1, selectedPage - 3);
   let endPage = Math.min(totalPages, selectedPage + 3);
@@ -22,7 +23,7 @@ export const Pagination = (props: PaginationPropsType) => {
         className={` ${i == currentPage ? `text-black` : `text-gray-400`}`}
         onClick={() => {
           setcurrentPage(i);
-          setSelectedPage(i)
+          setSelectedPage(i);
         }}
       >
         {i}

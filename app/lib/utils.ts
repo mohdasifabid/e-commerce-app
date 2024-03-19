@@ -33,7 +33,36 @@ export const loginHandler = async (email: string | "", password: string | "", ro
             localStorage.setItem("success", res.data.success);
             router.push("/categories");
         }
-    } catch (error) {
+    } catch (error: any) {
         localStorage.setItem("error", error?.response.data.error);
+    }
+};
+
+export const handleCategoryClick = (authToken: string | null, router: any) => {
+    if (authToken) {
+        router.push("/categories");
+    } else {
+        router.push("/login");
+    }
+};
+
+export const handleNavigationToSignInPage = (router: any) => router.push("/login");
+
+
+export const createAccountHandler = async (name: string | "", email: string | "", password: string | "", router: any) => {
+    try {
+        const res = await axios.post("/api/create-account", {
+            name,
+            email,
+            password,
+        });
+        if (res.status === 201) {
+            localStorage.setItem("authToken", res.data.token);
+            localStorage.setItem("userInfo", JSON.stringify(res.data.newUser));
+            localStorage.setItem("success", JSON.stringify(res.data.success));
+            router.push("/categories");
+        }
+    } catch (error: any) {
+        localStorage.setItem("error", JSON.stringify(error?.response.data.error));
     }
 };
