@@ -6,7 +6,7 @@ import { BsCart2 } from "react-icons/bs";
 import useAuth from "../lib/useAuth";
 import { DiscountBar } from "./discountBar";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
-import SuccessAlert from "../alerts/errorAlert";
+import SuccessAlert from "../alerts/successAlert";
 import useSuccessMsg from "../lib/useSuccessMsg";
 
 export const Navbar = (props: any) => {
