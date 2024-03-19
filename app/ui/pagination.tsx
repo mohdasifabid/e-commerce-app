@@ -1,17 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { FcPrevious, FcNext } from "react-icons/fc";
 import { PaginationPropsType } from "../lib/definitions";
 
+import { useData } from "../context/page";
+
 export const Pagination = (props: PaginationPropsType) => {
-  const { currentPage, totalPages, setcurrentPage } = props;
-  const [selectedPage, setSelectedPage] = useState(1);
+  const { totalPages } = props;
+  const { store : {currentPage}, setData } = useData();
 
-  let startPage = Math.max(1, selectedPage - 3);
-  let endPage = Math.min(totalPages, selectedPage + 3);
+  let startPage = Math.max(1, currentPage - 3);
+  let endPage = Math.min(totalPages, currentPage + 3);
 
-  if (selectedPage <= 3) {
+  if (currentPage <= 3) {
     endPage = Math.min(7, totalPages);
   }
   const btnsList = [];
@@ -22,8 +23,7 @@ export const Pagination = (props: PaginationPropsType) => {
         key={i}
         className={` ${i == currentPage ? `text-black` : `text-gray-400`}`}
         onClick={() => {
-          setcurrentPage(i);
-          setSelectedPage(i);
+          setData({ currentPage: i });
         }}
       >
         {i}
@@ -32,15 +32,13 @@ export const Pagination = (props: PaginationPropsType) => {
   }
   const isPreviousIconDisabled = currentPage == 1;
   const isNextIconDisabled = currentPage == totalPages - 1;
+  
   return (
     <div className="flex gap-3 items-center">
       <button
         className={`${isPreviousIconDisabled && "cursor-not-allowed"}`}
         disabled={isPreviousIconDisabled}
-        onClick={() => {
-          setcurrentPage((prevState) => prevState - 1);
-          setSelectedPage((prevState) => prevState - 1);
-        }}
+        onClick={() => setData({ currentPage: currentPage - 1 })}
       >
         <FcPrevious />
       </button>
@@ -48,10 +46,7 @@ export const Pagination = (props: PaginationPropsType) => {
       <button
         className={`${isNextIconDisabled && "cursor-not-allowed"}`}
         disabled={isNextIconDisabled}
-        onClick={() => {
-          setcurrentPage((prevState) => prevState + 1);
-          setSelectedPage((prevState) => prevState + 1);
-        }}
+        onClick={() => setData({ currentPage: currentPage + 1 })}
       >
         <FcNext />
       </button>

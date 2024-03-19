@@ -7,9 +7,13 @@ import { Layout } from "../ui/layout";
 import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
 import Loader from "../loader";
+import { useData } from "../context/page";
 
 const InterestPage = () => {
-  const [currentPage, setcurrentPage] = useState(1);
+  // const [currentPage, setcurrentPage] = useState(1);
+  const { store, setData } = useData();
+  const {currentPage} = store
+  
   const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
 
   const getCategories = async () => {
@@ -37,23 +41,25 @@ const InterestPage = () => {
           <Loader />
         ) : (
           <div className="flex flex-col gap-8 ">
-            {data?.categories?.map(({ categoryName, id, interested }: any) => {
-              return (
-                <Interest
-                  interest={categoryName}
-                  value={id}
-                  checked={interested}
-                  key={id}
-                />
-              );
-            })}
+            {data?.categories?.map(
+              ({ categoryName, id, interested }: any) => {
+                return (
+                  <Interest
+                    interest={categoryName}
+                    value={id}
+                    checked={interested}
+                    key={id}
+                  />
+                );
+              }
+            )}
             <div className="flex items-center flex-col">
               <Pagination
                 totalPages={data?.totalPages}
                 recordsPerPage={data?.recordsPerPage}
                 currentPage={data?.pageNumber}
                 totalRecords={data?.totalPages}
-                setcurrentPage={setcurrentPage}
+                // setcurrentPage={setcurrentPage}
               />
             </div>
           </div>
