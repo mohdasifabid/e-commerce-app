@@ -28,7 +28,6 @@ export const Interest = (props: InterestPropsTypes) => {
         checked={isInterestChecked}
         value={value}
         onChange={(e) => {
-          console.log({ isInterestChecked })
           const catId = Number(e.target.value)
           setIsInterestChecked((prevState) => !prevState);
           mutation.mutate(catId, !isInterestChecked)
