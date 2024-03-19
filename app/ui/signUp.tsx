@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
@@ -13,6 +13,7 @@ import {
   validateName,
   validatePassword,
 } from "../lib/utils";
+import { useData } from "../context/page";
 
 export const SignUp = (props: any) => {
   const router = useRouter();
@@ -28,11 +29,23 @@ export const SignUp = (props: any) => {
     string | number,
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
-
+const {store, setData} = useData()
   const mutation: any = useMutation({
     mutationKey: ["signUp"],
     mutationFn: () => createAccountHandler(name, email, password, router),
   });
+  useEffect(() => {
+    if (mutation.data?.token || mutation.data?.error) {
+      setData({
+        ...store,
+        userInfo: mutation.data?.currentUser || {},
+        loginRes: mutation?.data || {},
+        isAuthenticated: !!mutation.data?.token || false,
+        successMsg: mutation.data?.success || "",
+        errorMsg: mutation.data?.error || "",
+      });
+    }
+  }, [mutation.data?.token, mutation.data?.error]);
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576 h-614">
       <p className="text-4xl font-600 pb-6 pt-16">Create your account</p>

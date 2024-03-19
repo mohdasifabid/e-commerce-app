@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useData } from '../context/page';
 
 const useSuccessMsg = () => {
-    const [isSuccessMsgPresent, setIsSuccessMsgPresent]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] = useState(false);
+    const { store, setData } = useData()
+    const { isAuthenticated, isSuccessAlertAlive } = store
 
     useEffect(() => {
-        const token = localStorage.getItem('success');
-        if (token) {
-            setIsSuccessMsgPresent(true);
+        if (isAuthenticated) {
+            setData({ ...store, isSuccessAlertAlive: true });
             const timeout = setTimeout(() => {
-                localStorage.removeItem('success');
-                setIsSuccessMsgPresent(false);
+                setData({ ...store, isSuccessAlertAlive: false });
             }, 5000);
 
             return () => clearTimeout(timeout);
         }
     }, []);
 
-    return isSuccessMsgPresent;
+    return isSuccessAlertAlive;
 };
 
 export default useSuccessMsg;

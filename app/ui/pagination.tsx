@@ -7,7 +7,8 @@ import { useData } from "../context/page";
 
 export const Pagination = (props: PaginationPropsType) => {
   const { totalPages } = props;
-  const { store : {currentPage}, setData } = useData();
+  const { store, setData } = useData();
+  const { currentPage } = store;
 
   let startPage = Math.max(1, currentPage - 3);
   let endPage = Math.min(totalPages, currentPage + 3);
@@ -23,7 +24,7 @@ export const Pagination = (props: PaginationPropsType) => {
         key={i}
         className={` ${i == currentPage ? `text-black` : `text-gray-400`}`}
         onClick={() => {
-          setData({ currentPage: i });
+          setData({ ...store, currentPage: i });
         }}
       >
         {i}
@@ -32,7 +33,7 @@ export const Pagination = (props: PaginationPropsType) => {
   }
   const isPreviousIconDisabled = currentPage == 1;
   const isNextIconDisabled = currentPage == totalPages - 1;
-  
+
   return (
     <div className="flex gap-3 items-center">
       <button

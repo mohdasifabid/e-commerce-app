@@ -28,18 +28,17 @@ export const loginHandler = async (email: string | "", password: string | "", ro
         });
 
         if (res.status === 200 || 201) {
-            localStorage.setItem("authToken", res.data.token);
-            localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
-            localStorage.setItem("success", res.data.success);
+
             router.push("/categories");
         }
+        return res.data
     } catch (error: any) {
-        localStorage.setItem("error", error?.response.data.error);
+        return error?.response.data
     }
 };
 
-export const handleCategoryClick = (authToken: string | null, router: any) => {
-    if (authToken) {
+export const handleCategoryClick = (isAuthenticated: boolean, router: any) => {
+    if (isAuthenticated) {
         router.push("/categories");
     } else {
         router.push("/login");
@@ -57,12 +56,10 @@ export const createAccountHandler = async (name: string | "", email: string | ""
             password,
         });
         if (res.status === 201) {
-            localStorage.setItem("authToken", res.data.token);
-            localStorage.setItem("userInfo", JSON.stringify(res.data.newUser));
-            localStorage.setItem("success", JSON.stringify(res.data.success));
             router.push("/categories");
+            return res.data
         }
     } catch (error: any) {
-        localStorage.setItem("error", JSON.stringify(error?.response.data.error));
+        return error?.response.data
     }
 };

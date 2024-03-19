@@ -4,28 +4,33 @@ import { BsCart2 } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 
-import useAuth from "../lib/useAuth";
 import { DiscountBar } from "./discountBar";
-import useErrorMsg from "../lib/useErrorMsg";
 import ErrorAlert from "../alerts/errorAlert";
 import useSuccessMsg from "../lib/useSuccessMsg";
 import SuccessAlert from "../alerts/successAlert";
 import { handleCategoryClick } from "../lib/utils";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
-
+import { useData } from "../context/page";
+import { useEffect, useState } from "react";
 
 export const Navbar = (props: any) => {
   const router = useRouter();
-  const isLoggedIn = useAuth();
-  const isErrorAlertActive = useErrorMsg();
+  const { store, setData } = useData();
+  const { isAuthenticated, userInfo, successMsg, errorMsg } = store;
   const isSuccessAlertAlive = useSuccessMsg();
+  const [isErrorAlertActive, setIsErrorAlertActive] = useState(false);
 
-  const authToken = localStorage.getItem("authToken");
-  const successMsg = localStorage.getItem("success") || "";
-  const errorMsg = localStorage.getItem("error") || "";
-  const userInfoString = localStorage.getItem("userInfo") || "";
-  const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
-  
+
+  useEffect(() => {
+    if (errorMsg) {
+      setIsErrorAlertActive(true);
+      const timeout = setTimeout(() => {
+        setIsErrorAlertActive(false);
+      }, 5000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [errorMsg]);
   return (
     <nav className="fixed top-0 left-0 bg-white z-10 w-full h-100">
       {isSuccessAlertAlive && <SuccessAlert message={successMsg} />}
@@ -35,9 +40,13 @@ export const Navbar = (props: any) => {
           <div className="flex gap-7 ">
             <p>Help</p>
             <p>Orders & Returns </p>
-            {userInfo?.name && <p>Hi, {userInfo?.name}</p>}
-            <button onClick={() => loginLogoutHandler(isLoggedIn, router)}>
-              {isLoggedIn ? "Logout" : "Login"}
+            {isAuthenticated && <p>Hi, {userInfo?.name}</p>}
+            <button
+              onClick={() =>
+                loginLogoutHandler(isAuthenticated, router, setData)
+              }
+            >
+              {isAuthenticated ? "Logout" : "Login"}
             </button>
           </div>
         </div>
@@ -48,7 +57,7 @@ export const Navbar = (props: any) => {
           <div className="flex gap-6 text-1xl font-bold">
             <button
               className="font-inter text-base font-semibold leading-5 text-left"
-              onClick={() => handleCategoryClick(authToken, router)}
+              onClick={() => handleCategoryClick(isAuthenticated, router)}
             >
               Categories
             </button>

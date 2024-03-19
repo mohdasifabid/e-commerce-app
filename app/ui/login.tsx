@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
 import { Button } from "./button";
 import { Input } from "./input";
 import { loginHandler, validateEmail, validatePassword } from "../lib/utils";
+import { useData } from "../context/page";
 
 export const Login = (props: any) => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const Login = (props: any) => {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ] = useState("");
-  
+
   const [password, setPassword]: [
     string | number,
     React.Dispatch<React.SetStateAction<any>>
@@ -23,9 +24,20 @@ export const Login = (props: any) => {
     mutationKey: ["login"],
     mutationFn: () => loginHandler(email, password, router),
   });
-
+  const { store, setData } = useData();
   const handleNavigationToSignUpPage = () => router.push("/create-account");
-
+  useEffect(() => {
+    if (mutation.data?.token || mutation.data?.error) {
+      setData({
+        ...store,
+        userInfo: mutation.data?.currentUser || {},
+        loginRes: mutation?.data || {},
+        isAuthenticated: !!mutation.data?.token || false,
+        successMsg: mutation.data?.success || "",
+        errorMsg: mutation.data?.error || "",
+      });
+    }
+  }, [mutation.data?.token, mutation.data?.error]);
   return (
     <div className="flex flex-col items-center border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576 h-614">
       <p className="text-3xl font-600 mb-4 pt-16">Login</p>

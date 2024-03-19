@@ -1,11 +1,14 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useState } from "react";
 
-type Data = {
-  currentPage: number;
-};
+type Data = any;
 const initalState = {
   currentPage: 1,
+  loginRes: {},
+  isAuthenticated: false,
+  userInfo: {},
+  isSuccessAlertAlive: false,
+  isErrorAlertActive: false
 };
 const DataContext = createContext<{
   store: Data;
