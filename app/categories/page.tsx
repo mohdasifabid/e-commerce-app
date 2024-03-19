@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Layout } from "../ui/layout";
 import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
+import Loader from "../loader";
 
 const InterestPage = () => {
   const [currentPage, setcurrentPage] = useState(1);
@@ -13,14 +14,14 @@ const InterestPage = () => {
 
   const getCategories = async () => {
     const res = await axios.get(endPoint);
-    return res.data
+    return res.data;
   };
 
   const { isLoading, data } = useQuery({
     queryKey: ["categories", currentPage],
     queryFn: () => getCategories(),
-  })
-  
+  });
+
   return (
     <Layout>
       <div className="flex flex-col  border-2 border-gray-400 rounded-xl pl-12 pr-12 pb-4 w-576">
@@ -32,27 +33,31 @@ const InterestPage = () => {
         </div>
         <p className="mb-4 font-bold"> My saved interests!</p>
 
-        <div className="flex flex-col gap-8 ">
-          {data?.categories?.map(({ categoryName, id, interested }: any) => {
-            return (
-              <Interest
-                interest={categoryName}
-                value={id}
-                checked={interested}
-                key={id}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="flex flex-col gap-8 ">
+            {data?.categories?.map(({ categoryName, id, interested }: any) => {
+              return (
+                <Interest
+                  interest={categoryName}
+                  value={id}
+                  checked={interested}
+                  key={id}
+                />
+              );
+            })}
+            <div className="flex items-center flex-col">
+              <Pagination
+                totalPages={data?.totalPages}
+                recordsPerPage={data?.recordsPerPage}
+                currentPage={data?.pageNumber}
+                totalRecords={data?.totalPages}
+                setcurrentPage={setcurrentPage}
               />
-            );
-          })}
-          <div className="flex items-center flex-col">
-            <Pagination
-              totalPages={data?.totalPages}
-              recordsPerPage={data?.recordsPerPage}
-              currentPage={data?.pageNumber}
-              totalRecords={data?.totalPages}
-              setcurrentPage={setcurrentPage}
-            />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Layout>
   );
