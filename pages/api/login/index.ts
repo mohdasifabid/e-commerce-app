@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
         const currentUser = usersList?.find((item: { id: Number, email: string, password: string | number }) => item.email === email)
         const token = authenticateUser(email, password);
         if (token) {
-            res.status(200).json({ token, currentUser });
+            res.status(200).json({ token, currentUser, success: "Loggedin Successfully!" });
         } else {
             res.status(401).json({ error: "Invalid credentials" });
         }

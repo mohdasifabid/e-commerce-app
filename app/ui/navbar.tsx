@@ -6,6 +6,7 @@ import { BsCart2 } from "react-icons/bs";
 import useAuth from "../lib/useAuth";
 import { DiscountBar } from "./discountBar";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
+import SuccessAlert from "../alerts/errorAlert";
 
 export const Navbar = (props: any) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ export const Navbar = (props: any) => {
 
   return (
     <nav className="fixed top-0 left-0 bg-white z-10 w-full h-100">
+      <SuccessAlert message={"successme"}/>
       <div className="flex flex-col border-2 w-full gap-4 pl-7 pr-7 ">
         <div className="flex justify-end pt-2">
           <div className="flex gap-7 ">

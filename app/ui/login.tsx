@@ -13,7 +13,6 @@ export const Login = (props: any) => {
     string,
     React.Dispatch<React.SetStateAction<string>>
   ] = useState("");
-
   const [password, setPassword]: [
     string | number,
     React.Dispatch<React.SetStateAction<any>>
@@ -28,7 +27,10 @@ export const Login = (props: any) => {
     if (res.status === 200) {
       localStorage.setItem("authToken", res.data.token);
       localStorage.setItem("userInfo", JSON.stringify(res.data.currentUser));
+      localStorage.setItem("success", res.data.success);
       router.push("/categories");
+    } else {
+      localStorage.setItem("error", res.data.error);
     }
   };
 
