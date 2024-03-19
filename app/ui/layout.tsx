@@ -1,7 +1,9 @@
 import { Navbar } from "./navbar";
 
 const layoutChildrenStyle: any = { top: "144px", position: "relative" };
+
 export const Layout = ({ children }: any) => {
+  
   return (
     <div className="w-full bg-white">
       <Navbar />

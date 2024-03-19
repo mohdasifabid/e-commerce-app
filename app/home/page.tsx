@@ -1,5 +1,4 @@
 import { Layout } from "../ui/layout";
-import { SignUp } from "../ui/signUp";
 
 const Home = () => {
   return (

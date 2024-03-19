@@ -18,8 +18,8 @@ export const Login = (props: any) => {
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
 
-  const endPoint = "/api/login";
   const loginHandler = async () => {
+  const endPoint = "/api/login";
     try {
       const res = await axios.post(endPoint, {
         email,
