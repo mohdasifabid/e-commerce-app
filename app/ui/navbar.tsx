@@ -1,5 +1,5 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { BsCart2 } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
@@ -9,9 +9,7 @@ import ErrorAlert from "../alerts/errorAlert";
 import useSuccessMsg from "../lib/useSuccessMsg";
 import SuccessAlert from "../alerts/successAlert";
 import { handleCategoryClick } from "../lib/utils";
-import loginLogoutHandler from "../lib/loginLogoutHandler";
 import { useData } from "../context";
-import { useEffect, useState } from "react";
 
 export const Navbar = (props: any) => {
   const router = useRouter();
@@ -41,13 +39,12 @@ export const Navbar = (props: any) => {
             <p>Help</p>
             <p>Orders & Returns </p>
             {isAuthenticated && <p>Hi, {userInfo?.name}</p>}
-            <button
-              onClick={() =>
-                loginLogoutHandler(isAuthenticated, router, setData)
-              }
-            >
-              {isAuthenticated ? "Logout" : "Login"}
-            </button>
+            {isAuthenticated ? <button onClick={() => {
+              localStorage.clear();
+              setData({successMsg: "Logged out successfully"})
+              router.push("/login")
+            }}>Logout</button>
+              : <button onClick={() => router.push("/login")}>Login</button>}
           </div>
         </div>
         <div className="flex justify-between pb-2">

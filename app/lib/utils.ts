@@ -28,7 +28,7 @@ export const loginHandler = async (email: string | "", password: string | "", ro
         });
 
         if (res.status === 200 || 201) {
-
+            localStorage.setItem("authToken", res.data.token)
             router.push("/categories");
         }
         return res.data

@@ -5,7 +5,7 @@ type Data = any;
 const initalState = {
   currentPage: 1,
   loginRes: {},
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem("autheToken"),
   userInfo: {},
   isSuccessAlertAlive: false,
   isErrorAlertActive: false
@@ -15,7 +15,7 @@ const DataContext = createContext<{
   setData: React.Dispatch<React.SetStateAction<Data>>;
 }>({
   store: initalState,
-  setData: () => {},
+  setData: () => { },
 });
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {

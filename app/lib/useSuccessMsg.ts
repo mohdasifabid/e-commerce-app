@@ -14,7 +14,7 @@ const useSuccessMsg = () => {
 
             return () => clearTimeout(timeout);
         }
-    },);
+    },[]);
 
     return isSuccessAlertAlive;
 };
