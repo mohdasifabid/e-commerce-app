@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### E-Commerce App
 
-## Getting Started
+This is a mock E-commerce web application built using Next.js, React Query, Context API, React Icons, TypeScript, and Tailwind CSS. It provides functionalities such as user authentication (login, signup), browsing through categories, private routes for authenticated users, and more.
 
-First, run the development server:
+### Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Login/Signup**: Users can create an account or login using their credentials.
+- **Categories**: Users can browse products by different categories.
+- **Authentication**: Secure authentication is implemented.
+- **Private Route**: Certain routes are protected and can only be accessed by authenticated users.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: React framework for server-side rendering and routing.
+- **React Query**: For managing server state and fetching data.
+- **Context API**: For global state management.
+- **React Icons**: Icons library for UI.
+- **TypeScript**: For static typing.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Mock APIs
 
-## Learn More
+Mock APIs are used to simulate server-side interactions. These APIs mimic the behavior of real APIs but do not actually send or receive data to/from a server. Instead, they generate mock data locally.
 
-To learn more about Next.js, take a look at the following resources:
+### Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/mohdasifabid/e-commerce-app.git
+   ```
 
-## Deploy on Vercel
+2. Navigate to the project directory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   cd e-commerce-app
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Run the application:
+
+   ```bash
+   npm run dev
+   ```
+
+### Live Application
+
+The live application can be accessed [here](https://e-commerce-app-nine-chi.vercel.app/create-account).
+
+### Repository
+
+The source code is available on [GitHub](https://github.com/mohdasifabid/e-commerce-app).
+
+
+
+- Lets connect - [mohdasifabid](https://github.com/mohdasifabid).
+
+### Contact
+
