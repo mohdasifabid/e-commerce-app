@@ -31,7 +31,7 @@ export const SignUp = (props: any) => {
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
   const { store, setData } = useData()
-  useAuth()
+  useAuth("/create-account")
   const mutation: any = useMutation({
     mutationKey: ["signUp"],
     mutationFn: () => createAccountHandler(name, email, password, (token) => {

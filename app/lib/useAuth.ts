@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useData } from "../context";
 import { useEffect } from "react";
 
-export const useAuth = () => {
+export const useAuth = (path) => {
     const { store, setData } = useData()
     const router = useRouter();
     useEffect(() => {
@@ -15,7 +15,7 @@ export const useAuth = () => {
             setData({ ...store, isAuthenticated: !!token })
             router.push("/categories");
         } else {
-            router.push("/login");
+            router.push(path);
         }
     }, [store.isAuthenticated]);
 }

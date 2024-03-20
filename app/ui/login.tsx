@@ -20,8 +20,8 @@ export const Login = (props: any) => {
     string | number,
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
-  useAuth()
-  
+  useAuth("/login")
+
   const { store, setData } = useData()
   const mutation = useMutation({
     mutationKey: ["login"],
