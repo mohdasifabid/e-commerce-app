@@ -10,13 +10,16 @@ import { Pagination } from "../ui/pagination";
 import Loader from "../loader";
 import { useData } from "../context";
 import { useAuth } from "../lib/useAuth";
+import { BASE_URL } from "../lib/utils";
 
 const InterestPage = () => {
   const { store, setData } = useData();
   const { currentPage, isAuthenticated } = store;
   const router = useRouter();
-  useAuth("/login")
-  const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
+  useAuth("/login");
+  const endPoint = `${BASE_URL}/api/get-categories?pageNumber=${
+    currentPage || 1
+  }&recordsPerPage=${6}`;
 
   const getCategories = async () => {
     const res = await axios.get(endPoint);

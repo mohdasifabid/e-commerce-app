@@ -15,7 +15,7 @@ import { useData } from "../context";
 export const Navbar = (props: any) => {
   const router = useRouter();
   const { store, setData } = useData();
-  const { isAuthenticated, userInfo, successMsg, errorMsg } = store;
+  const { isAuthenticated, loginRes, successMsg, errorMsg } = store;
   const isSuccessAlertAlive = useSuccessMsg();
   const [isErrorAlertActive, setIsErrorAlertActive] = useState(false);
 
@@ -30,6 +30,7 @@ export const Navbar = (props: any) => {
       return () => clearTimeout(timeout);
     }
   }, [errorMsg]);
+  
   return (
     <nav className="fixed top-0 left-0 bg-white z-10 w-full h-100">
       {isSuccessAlertAlive && <SuccessAlert message={successMsg} />}
@@ -39,7 +40,7 @@ export const Navbar = (props: any) => {
           <div className="flex gap-7 ">
             <p>Help</p>
             <p>Orders & Returns </p>
-            {isAuthenticated && <p>Hi, {userInfo?.name}</p>}
+            {isAuthenticated && <p>Hi, {loginRes?.newUser?.name}</p>}
             {isAuthenticated ? <button onClick={() => {
                window.localStorage.clear();
               setData({ successMsg: "Logged out successfully", isAuthenticated: false })

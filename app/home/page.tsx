@@ -1,6 +1,10 @@
+import { BASE_URL } from "../lib/utils";
 import { Layout } from "../ui/appLayout";
 
 const Home = () => {
+  if (!BASE_URL) {
+    return null;
+  }
   return (
     <Layout>
       <div className="flex flex-col h-40">

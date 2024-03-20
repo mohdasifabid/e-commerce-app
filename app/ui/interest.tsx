@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
 import { InterestPropsTypes } from "../lib/definitions";
+import { BASE_URL } from "../lib/utils";
 
 export const Interest = (props: InterestPropsTypes) => {
   const { interest, checked, value } = props;
@@ -15,7 +16,7 @@ export const Interest = (props: InterestPropsTypes) => {
     categoryId: number,
     interest: boolean
   ) => {
-    const res = await axios.put("/api/update-interest", {
+    const res = await axios.put(`${BASE_URL}/api/update-interest`, {
       categoryId: Number(categoryId),
       interest,
     });
@@ -23,8 +24,13 @@ export const Interest = (props: InterestPropsTypes) => {
   };
   const mutation = useMutation({
     mutationKey: ["categories"],
-    mutationFn: ({ categoryId, interest }: { categoryId: number, interest: boolean }) =>
-      updateInterestHandler(categoryId, interest),
+    mutationFn: ({
+      categoryId,
+      interest,
+    }: {
+      categoryId: number;
+      interest: boolean;
+    }) => updateInterestHandler(categoryId, interest),
   });
 
   return (
@@ -38,7 +44,6 @@ export const Interest = (props: InterestPropsTypes) => {
           const catId = Number(e.target.value);
           setIsInterestChecked((prevState) => !prevState);
           mutation.mutate({ categoryId: catId, interest: !isInterestChecked });
-
         }}
       />
       <p>{interest}</p>
