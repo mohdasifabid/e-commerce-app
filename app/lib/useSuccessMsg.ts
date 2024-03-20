@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useData } from '../context/page';
+import { useData } from '../context';
 
 const useSuccessMsg = () => {
     const { store, setData } = useData()

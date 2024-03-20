@@ -1,4 +1,4 @@
-import { Layout } from "../ui/layout";
+import { Layout } from "../ui/appLayout";
 import { Login } from "../ui/login";
 
 const SignInPage = () => {

@@ -3,7 +3,7 @@
 import { FcPrevious, FcNext } from "react-icons/fc";
 import { PaginationPropsType } from "../lib/definitions";
 
-import { useData } from "../context/page";
+import { useData } from "../context";
 
 export const Pagination = (props: PaginationPropsType) => {
   const { totalPages } = props;

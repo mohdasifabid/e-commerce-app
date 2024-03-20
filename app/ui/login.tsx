@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Button } from "./button";
 import { Input } from "./input";
 import { loginHandler, validateEmail, validatePassword } from "../lib/utils";
-import { useData } from "../context/page";
+import { useData } from "../context";
 
 export const Login = (props: any) => {
   const router = useRouter();

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { Layout } from "../ui/layout";
+import { Layout } from "../ui/appLayout";
 import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
 import Loader from "../loader";
-import { useData } from "../context/page";
+import { useData } from "../context";
 
 const InterestPage = () => {
   const { store, setData } = useData();

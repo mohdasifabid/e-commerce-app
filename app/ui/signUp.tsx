@@ -13,7 +13,7 @@ import {
   validateName,
   validatePassword,
 } from "../lib/utils";
-import { useData } from "../context/page";
+import { useData } from "../context";
 
 export const SignUp = (props: any) => {
   const router = useRouter();

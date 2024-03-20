@@ -1,4 +1,4 @@
-import { Layout } from "../ui/layout";
+import { Layout } from "../ui/appLayout";
 
 const Home = () => {
   return (

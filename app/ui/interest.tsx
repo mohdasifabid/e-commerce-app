@@ -17,16 +17,16 @@ export const Interest = (props: InterestPropsTypes) => {
   ) => {
     const res = await axios.put("/api/update-interest", {
       categoryId: Number(categoryId),
-      interest: isInterestChecked,
+      interest,
     });
     return res;
   };
   const mutation = useMutation({
     mutationKey: ["categories"],
-    mutationFn: (categoryId: number, interest: boolean) =>
+    mutationFn: ({ categoryId, interest }: { categoryId: number, interest: boolean }) =>
       updateInterestHandler(categoryId, interest),
   });
-  
+
   return (
     <div className="flex gap-5 items-center">
       <input
@@ -37,7 +37,8 @@ export const Interest = (props: InterestPropsTypes) => {
         onChange={(e) => {
           const catId = Number(e.target.value);
           setIsInterestChecked((prevState) => !prevState);
-          mutation.mutate(catId, !isInterestChecked);
+          mutation.mutate({ categoryId: catId, interest: !isInterestChecked });
+
         }}
       />
       <p>{interest}</p>

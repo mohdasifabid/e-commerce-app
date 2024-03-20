@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useData } from "./context/page";
+import { useData } from "./context";
 
 export default function Home() {
   const {store, setData} = useData()

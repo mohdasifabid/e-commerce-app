@@ -10,7 +10,7 @@ import useSuccessMsg from "../lib/useSuccessMsg";
 import SuccessAlert from "../alerts/successAlert";
 import { handleCategoryClick } from "../lib/utils";
 import loginLogoutHandler from "../lib/loginLogoutHandler";
-import { useData } from "../context/page";
+import { useData } from "../context";
 import { useEffect, useState } from "react";
 
 export const Navbar = (props: any) => {
