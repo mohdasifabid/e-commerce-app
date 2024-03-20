@@ -14,6 +14,7 @@ import {
   validatePassword,
 } from "../lib/utils";
 import { useData } from "../context";
+import { useAuth } from "../lib/useAuth";
 
 export const SignUp = (props: any) => {
   const router = useRouter();
@@ -29,11 +30,17 @@ export const SignUp = (props: any) => {
     string | number,
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
-const {store, setData} = useData()
+  const { store, setData } = useData()
+  useAuth()
   const mutation: any = useMutation({
     mutationKey: ["signUp"],
-    mutationFn: () => createAccountHandler(name, email, password, router),
+    mutationFn: () => createAccountHandler(name, email, password, (token) => {
+      window.localStorage.setItem("authToken", token);
+      router.push("/categories");
+      setData({ ...store, isAuthenticated: !!token })
+    }),
   });
+
   useEffect(() => {
     if (mutation.data?.token || mutation.data?.error) {
       setData({

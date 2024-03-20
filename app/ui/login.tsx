@@ -7,6 +7,7 @@ import { Button } from "./button";
 import { Input } from "./input";
 import { loginHandler, validateEmail, validatePassword } from "../lib/utils";
 import { useData } from "../context";
+import { useAuth } from "../lib/useAuth";
 
 export const Login = (props: any) => {
   const router = useRouter();
@@ -19,12 +20,17 @@ export const Login = (props: any) => {
     string | number,
     React.Dispatch<React.SetStateAction<any>>
   ] = useState("");
-
+  useAuth()
+  
+  const { store, setData } = useData()
   const mutation = useMutation({
     mutationKey: ["login"],
-    mutationFn: () => loginHandler(email, password, router),
+    mutationFn: () => loginHandler(email, password, (token) => {
+      window.localStorage.setItem("authToken", token);
+      router.push("/categories");
+      setData({ ...store, isAuthenticated: !!token })
+    }),
   });
-  const { store, setData } = useData();
   const handleNavigationToSignUpPage = () => router.push("/create-account");
   useEffect(() => {
     if (mutation.data?.token || mutation.data?.error) {

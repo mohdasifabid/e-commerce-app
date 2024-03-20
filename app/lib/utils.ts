@@ -1,5 +1,5 @@
+"use client"
 import axios from "axios";
-
 export const validateEmail = (value: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
@@ -19,7 +19,7 @@ export const validateName = (value: string) => {
     }
 };
 
-export const loginHandler = async (email: string | "", password: string | "", router: any) => {
+export const loginHandler = async (email: string | "", password: string | "", callback: any) => {
     const endPoint = "/api/login";
     try {
         const res = await axios.post(endPoint, {
@@ -28,8 +28,7 @@ export const loginHandler = async (email: string | "", password: string | "", ro
         });
 
         if (res.status === 200 || 201) {
-            localStorage.setItem("authToken", res.data.token)
-            router.push("/categories");
+            callback(res.data.token)
         }
         return res.data
     } catch (error: any) {
@@ -48,7 +47,7 @@ export const handleCategoryClick = (isAuthenticated: boolean, router: any) => {
 export const handleNavigationToSignInPage = (router: any) => router.push("/login");
 
 
-export const createAccountHandler = async (name: string | "", email: string | "", password: string | "", router: any) => {
+export const createAccountHandler = async (name: string | "", email: string | "", password: string | "", callback: any) => {
     try {
         const res = await axios.post("/api/create-account", {
             name,
@@ -56,7 +55,7 @@ export const createAccountHandler = async (name: string | "", email: string | ""
             password,
         });
         if (res.status === 201) {
-            router.push("/categories");
+            callback(res.data.token)
             return res.data
         }
     } catch (error: any) {

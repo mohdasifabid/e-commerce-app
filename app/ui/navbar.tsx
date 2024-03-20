@@ -11,6 +11,7 @@ import SuccessAlert from "../alerts/successAlert";
 import { handleCategoryClick } from "../lib/utils";
 import { useData } from "../context";
 
+
 export const Navbar = (props: any) => {
   const router = useRouter();
   const { store, setData } = useData();
@@ -40,8 +41,8 @@ export const Navbar = (props: any) => {
             <p>Orders & Returns </p>
             {isAuthenticated && <p>Hi, {userInfo?.name}</p>}
             {isAuthenticated ? <button onClick={() => {
-              localStorage.clear();
-              setData({successMsg: "Logged out successfully"})
+               window.localStorage.clear();
+              setData({ successMsg: "Logged out successfully", isAuthenticated: false })
               router.push("/login")
             }}>Logout</button>
               : <button onClick={() => router.push("/login")}>Login</button>}

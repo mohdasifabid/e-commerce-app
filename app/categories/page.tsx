@@ -9,11 +9,13 @@ import { Interest } from "../ui/interest";
 import { Pagination } from "../ui/pagination";
 import Loader from "../loader";
 import { useData } from "../context";
+import { useAuth } from "../lib/useAuth";
 
 const InterestPage = () => {
   const { store, setData } = useData();
   const { currentPage, isAuthenticated } = store;
   const router = useRouter();
+  useAuth()
   const endPoint = `/api/get-categories?pageNumber=${currentPage}&recordsPerPage=${6}`;
 
   const getCategories = async () => {

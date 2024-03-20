@@ -5,7 +5,7 @@ type Data = any;
 const initalState = {
   currentPage: 1,
   loginRes: {},
-  isAuthenticated: localStorage.getItem("autheToken"),
+  isAuthenticated: false,
   userInfo: {},
   isSuccessAlertAlive: false,
   isErrorAlertActive: false
